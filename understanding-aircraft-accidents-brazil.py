@@ -69,6 +69,45 @@ df_fator_contribuinte = pd.read_csv('http://sistema.cenipa.aer.mil.br/cenipa/med
 df_ocorrencia = pd.read_csv('http://sistema.cenipa.aer.mil.br/cenipa/media/opendata/ocorrencia.csv', sep=';')
 
 # %% [markdown]
+# ### Data quality checks
+
+# %% [markdown]
+# #### Geolocation errors
+
+# %%
+location_filter = ['ocorrencia_cidade', 'ocorrencia_uf', 'ocorrencia_latitude', 'ocorrencia_longitude']
+
+# %% [markdown]
+# ⚠️ Swapped Latitude / longitude
+
+# %%
+df_ocorrencia[df_ocorrencia.codigo_ocorrencia == 79811].loc[:, location_filter]
+
+# %%
+df_ocorrencia[df_ocorrencia.codigo_ocorrencia == 79212].loc[:, location_filter]
+
+# %% [markdown]
+# ⚠️ Zeroed Latitude / longitude
+
+# %%
+df_ocorrencia[df_ocorrencia.codigo_ocorrencia == 79992].loc[:, location_filter]
+
+# %% [markdown]
+# ⚠️ Latitude / longitude with wrong sign
+
+# %%
+df_ocorrencia[df_ocorrencia.codigo_ocorrencia == 79460].loc[:, location_filter]
+
+# %%
+df_ocorrencia[df_ocorrencia.ocorrencia_cidade == 'BRASÍLIA'].loc[:, location_filter].tail()
+
+# %% [markdown]
+# ⚠️ Latitude / longitude with decimal separator in the wrong place?
+
+# %%
+df_ocorrencia[(df_ocorrencia.ocorrencia_latitude < -55) | (df_ocorrencia.ocorrencia_latitude > 7)].loc[:, location_filter]
+
+# %% [markdown]
 # ### Cleanup
 
 # %%
