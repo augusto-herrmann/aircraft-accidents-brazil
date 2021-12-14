@@ -38,8 +38,12 @@ locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
 import pandas as pd
 import numpy as np
 
+import plotly.io as pio
 import plotly.express as px
 import folium
+
+# %%
+pio.templates.default='plotly_dark'
 
 # %% [markdown] tags=[]
 # ## Source of data: Cenipa
