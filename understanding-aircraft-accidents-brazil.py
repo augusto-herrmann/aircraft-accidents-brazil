@@ -174,7 +174,15 @@ m = folium.Map(location=[-15.24,-51.33], zoom_start=4)
 for occurence in accidents_2020[accidents_2020.ocorrencia_latitude.notna()].itertuples():
     folium.Marker(
         [occurence.ocorrencia_latitude, occurence.ocorrencia_longitude],
-        popup=occurence.ocorrencia_cidade
+        popup=(
+            '<dl>'
+            f'<dt>Código:<dt><dd>{occurence.codigo_ocorrencia}</dd>'
+            f'<dt>Data:<dt><dd>{occurence.ocorrencia_dia}</dd>'
+            f'<dt>Hora:<dt><dd>{occurence.ocorrencia_hora}</dd>'
+            f'<dt>Classificação:</dt><dd>{occurence.ocorrencia_classificacao}</dd>'
+            f'<dt>Cidade:</dt><dd>{occurence.ocorrencia_cidade}</dd>'
+            '</dl>'
+        ),
     ).add_to(m)
 m
 
